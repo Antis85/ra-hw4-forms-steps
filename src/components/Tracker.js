@@ -33,7 +33,12 @@ export default function Tracker(props) {
       if (existDateSubmit)
         return prevTable.map((item) =>
           item.id === form.id
-            ? { ...item, distance: (Number(item.distance) + Number(form.distance)).toString() }
+            ? {
+                ...item,
+                distance: (
+                  Number(item.distance) + Number(form.distance)
+                ).toString(),
+              }
             : item
         );
       const newTableArr = [...prevTable, form];
@@ -48,7 +53,7 @@ export default function Tracker(props) {
   };
 
   const handleEdit = (itemId) => {
-    const { id, date, distance } = table.find((item) => item.id === itemId);    
+    const { id, date, distance } = table.find((item) => item.id === itemId);
     setForm(() => ({ id, date, distance }));
   };
 
@@ -63,23 +68,19 @@ export default function Tracker(props) {
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
-      <TrackTable
-        table={table}
-        onClick={{
-          handleEdit,
-          handleRemove,
-        }}
-      />
+      <TrackTable table={table} onEdit={handleEdit} onRemove={handleRemove} />
     </>
   );
 }
 
 Tracker.propTypes = {
-  initTable: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    distance: PropTypes.string.isRequired,
-  })).isRequired,
+  initTable: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      distance: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   initForm: PropTypes.shape({
     id: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,

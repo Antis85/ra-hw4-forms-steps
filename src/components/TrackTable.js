@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function TrackTable(props) {
-  const { table, onClick } = props;
+  const { table, onEdit, onRemove } = props;
   const tableItems = table.map((item) => (
     <tr key={item.id} align="center">
       <td>{item.date}</td>
       <td>{item.distance}</td>
       <td>
         <button
-          onClick={() => onClick.handleEdit(item.id)}
+          onClick={() => onEdit(item.id)}
           className="TrackTable-button button-edit"
         >
           &#9998;
         </button>
         <button
-          onClick={() => onClick.handleRemove(item.id)}
+          onClick={() => onRemove(item.id)}
           className="TrackTable-button button-remove"
         >
           &#10008;
@@ -43,13 +43,13 @@ export default function TrackTable(props) {
 }
 
 TrackTable.propTypes = {
-  table: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    distance: PropTypes.string.isRequired,
-  })).isRequired,
-  onClick: PropTypes.shape({
-    handleEdit: PropTypes.func.isRequired,
-    handleRemove: PropTypes.func.isRequired,
-  }).isRequired,
+  table: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      distance: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
